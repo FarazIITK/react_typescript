@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 
 const Stopwatch = () => {
+  const buttonTags = {
+    start: 'Start',
+    resume: 'Resume',
+    pause: 'Pause',
+    reset: 'Reset'
+  };
+
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [isTimerPaused, setIsTimerPaused] =
     useState<boolean>(true);
@@ -26,7 +33,9 @@ const Stopwatch = () => {
       <h1>Time: {timeElapsed}</h1>
       <div>
         <button onClick={playPauseHandler}>
-          {isTimerPaused ? `Play` : `Pause`}
+          {isTimerPaused
+            ? buttonTags.resume
+            : buttonTags.pause}
         </button>
       </div>
     </div>
