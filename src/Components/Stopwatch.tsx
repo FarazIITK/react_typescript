@@ -25,8 +25,9 @@ const Stopwatch = () => {
     <div>
       <h1>Time: {timeElapsed}</h1>
       <div>
-        <button onClick={playPauseHandler}>Play</button>
-        <button onClick={playPauseHandler}>Pause</button>
+        <button onClick={playPauseHandler}>
+          {isTimerPaused ? `Play` : `Pause`}
+        </button>
       </div>
     </div>
   );
