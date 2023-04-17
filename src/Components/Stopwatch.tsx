@@ -8,13 +8,20 @@ const Stopwatch = () => {
     reset: 'Reset'
   };
 
-  const [timeElapsed, setTimeElapsed] = useState<number>(0);
+  const initialTime: number = 0;
+  const timerInterval: number = 1000;
+
+  const [timeElapsed, setTimeElapsed] =
+    useState<number>(initialTime);
   const [isTimerPaused, setIsTimerPaused] =
     useState<boolean>(true);
+  const [isTimerStarted, setIsTimerStarted] =
+    useState<boolean>(false);
 
   const intervalId = useRef<NodeJS.Timer | null>(null);
 
   const playPauseHandler = () => {
+    setIsTimerStarted(true);
     setIsTimerPaused((prevState) => !prevState);
   };
 
@@ -24,7 +31,7 @@ const Stopwatch = () => {
     } else if (!isTimerPaused) {
       intervalId.current = setInterval(() => {
         setTimeElapsed((prevValue) => prevValue + 1);
-      }, 1000);
+      }, timerInterval);
     }
   }, [isTimerPaused]);
 
@@ -33,9 +40,11 @@ const Stopwatch = () => {
       <h1>Time: {timeElapsed}</h1>
       <div>
         <button onClick={playPauseHandler}>
-          {isTimerPaused
-            ? buttonTags.resume
-            : buttonTags.pause}
+          {!isTimerStarted
+            ? buttonTags.start
+            : isTimerPaused
+            ? buttonTags.pause
+            : buttonTags.resume}
         </button>
       </div>
     </div>
