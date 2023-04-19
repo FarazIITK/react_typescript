@@ -28,6 +28,12 @@ const Stopwatch = () => {
     setIsTimerPaused((prevState) => !prevState);
   };
 
+  const resetTimer = () => {
+    setIsTimerStarted(false);
+    setIsTimerPaused(true);
+    setTimeElapsed(initialTime);
+  };
+
   useEffect(() => {
     if (isTimerPaused && intervalId.current) {
       clearInterval(intervalId.current);
@@ -66,6 +72,10 @@ const Stopwatch = () => {
             : isTimerPaused
             ? buttonTags.resume
             : buttonTags.pause}
+        </button>
+
+        <button onClick={resetTimer}>
+          {buttonTags.reset}
         </button>
       </div>
     </div>
